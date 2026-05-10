@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KAM INFO - Store</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            mont: ['Montserrat', 'sans-serif']
+          },
+          colors: {
+            primary: '#2563eb'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .glass {
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.7);
+    }
+
+    .dark .glass {
+      background: rgba(17,24,39,0.7);
+    }
+
+    .hero-overlay {
+      background: linear-gradient(to right, rgba(0,0,0,.8), rgba(0,0,0,.3));
+    }
+
+    .promo-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .transition-custom {
+      transition: all .3s ease;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white transition-custom">
+
+  <!-- TOP BAR -->
+  <div class="bg-black text-white text-sm py-3">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3">
+
+      <div class="flex items-center gap-2">
+        <i class="fab fa-whatsapp text-green-400"></i>
+        <span>+212 6 12 34 56 78</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+
+        <!-- Language Dropdown -->
+        <div class="relative">
+          <button id="langBtn" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-3 py-2 rounded-lg">
+            <i class="fas fa-language"></i>
+            <span>AR / FR / EN</span>
+            <i class="fas fa-chevron-down text-xs"></i>
+          </button>
+
+          <div id="langMenu" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden z-50">
+            <button onclick="changeLanguage('AR')" class="w-full text-left px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">العربية</button>
+            <button onclick="changeLanguage('FR')" class="w-full text-left px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">Français</button>
+            <button onclick="changeLanguage('EN')" class="w-full text-left px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">English</button>
+          </div>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="bg-gray-800 hover:bg-gray-700 w-11 h-11 rounded-full flex items-center justify-center">
+          <i id="theme-icon" class="fas fa-moon"></i>
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md shadow-md">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex items-center justify-between h-20">
+
+        <!-- LOGO -->
+        <div class="text-3xl font-extrabold">
+          <span class="text-black dark:text-white">KAM</span>
+          <span class="text-primary"> INFO</span>
+        </div>
+
+        <!-- NAV -->
+        <nav class="hidden lg:flex items-center gap-8 font-medium">
+          <a href="#" class="hover:text-primary transition">Accueil</a>
+          <a href="#" class="hover:text-primary transition">Laptops</a>
+          <a href="#" class="hover:text-primary transition">Composants PC</a>
+          <a href="#" class="hover:text-primary transition">Accessoires</a>
+          <a href="#" class="hover:text-primary transition">À Propos</a>
+        </nav>
+
+        <!-- RIGHT -->
+        <div class="flex items-center gap-4">
+
+          <button class="text-xl hover:text-primary">
+            <i class="fas fa-search"></i>
+          </button>
+
+          <button class="text-xl hover:text-primary">
+            <i class="fas fa-user"></i>
+          </button>
+
+          <button class="relative text-xl hover:text-primary">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="absolute -top-2 -right-2 bg-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">3</span>
+          </button>
+
+          <button class="hidden md:block bg-primary hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-semibold shadow-lg transition">
+            Nos Magasins
+          </button>
+
+          <!-- Mobile -->
+          <button class="lg:hidden text-2xl">
+            <i class="fas fa-bars"></i>
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative">
+    <div class="relative h-[650px] overflow-hidden">
+      <img 
+        src="https://images.unsplash.com/photo-1547082299-de196ea013d6?q=80&w=1600&auto=format&fit=crop" 
+        class="w-full h-full object-cover"
+        alt=""
+      >
+
+      <div class="absolute inset-0 hero-overlay"></div>
+
+      <div class="absolute inset-0 flex items-center">
+        <div class="max-w-7xl mx-auto px-4">
+          <div class="max-w-2xl text-white">
+            <span class="bg-primary px-4 py-2 rounded-full text-sm font-semibold">
+              Gaming Setup 2026
+            </span>
+
+            <h1 class="text-5xl md:text-7xl font-extrabold mt-6 leading-tight">
+              Puissance & Performance
+            </h1>
+
+            <p class="mt-6 text-lg text-gray-200 leading-relaxed">
+              Découvrez les meilleurs laptops gaming, composants PC et accessoires high-tech au meilleur prix.
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-4">
+              <button class="bg-primary hover:bg-blue-700 px-8 py-4 rounded-xl font-bold text-white shadow-xl transition">
+                Acheter Maintenant
+              </button>
+
+              <button class="border border-white hover:bg-white hover:text-black px-8 py-4 rounded-xl font-bold transition">
+                Découvrir
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Promo Grid -->
+    <div class="max-w-7xl mx-auto px-4 -mt-20 relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div class="rounded-3xl overflow-hidden relative group">
+          <img src="https://images.unsplash.com/photo-1517336714739-489689fd1ca8?q=80&w=1200&auto=format&fit=crop"
+          class="h-72 w-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-black/50 flex flex-col justify-end p-6">
+            <h3 class="text-white text-2xl font-bold">Gaming Laptops</h3>
+            <button class="mt-4 bg-primary text-white px-5 py-3 rounded-xl w-fit">
+              Découvrir
+            </button>
+          </div>
+        </div>
+
+        <div class="rounded-3xl overflow-hidden relative group">
+          <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?q=80&w=1200&auto=format&fit=crop"
+          class="h-72 w-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-black/50 flex flex-col justify-end p-6">
+            <h3 class="text-white text-2xl font-bold">Moniteurs</h3>
+            <button class="mt-4 bg-primary text-white px-5 py-3 rounded-xl w-fit">
+              Découvrir
+            </button>
+          </div>
+        </div>
+
+        <div class="rounded-3xl overflow-hidden relative group">
+          <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?q=80&w=1200&auto=format&fit=crop"
+          class="h-72 w-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-black/50 flex flex-col justify-end p-6">
+            <h3 class="text-white text-2xl font-bold">Accessoires RGB</h3>
+            <button class="mt-4 bg-primary text-white px-5 py-3 rounded-xl w-fit">
+              Découvrir
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVATION BANNER -->
+  <section class="bg-primary py-6 mt-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-4 text-center lg:text-left">
+
+        <h2 class="text-white text-2xl md:text-3xl font-extrabold">
+          احجز منتجك الآن بـ 100 درهم فقط! و كمل المبلغ المتبقي عند الإستلام
+        </h2>
+
+        <div class="flex items-center gap-5 text-white text-4xl">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-paypal"></i>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4">
+
+      <div class="text-center mb-14">
+        <h2 class="text-4xl font-extrabold">Nos Catégories</h2>
+        <p class="text-gray-500 dark:text-gray-400 mt-3">
+          Explorez nos univers technologiques
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 hover:-translate-y-2 transition shadow-lg">
+          <i class="fas fa-desktop text-primary text-4xl"></i>
+          <h3 class="mt-5 font-bold text-xl">PC Gamer</h3>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 hover:-translate-y-2 transition shadow-lg">
+          <i class="fas fa-laptop text-primary text-4xl"></i>
+          <h3 class="mt-5 font-bold text-xl">Laptops</h3>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 hover:-translate-y-2 transition shadow-lg">
+          <i class="fas fa-tv text-primary text-4xl"></i>
+          <h3 class="mt-5 font-bold text-xl">Écrans</h3>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 hover:-translate-y-2 transition shadow-lg">
+          <i class="fas fa-keyboard text-primary text-4xl"></i>
+          <h3 class="mt-5 font-bold text-xl">Périphériques</h3>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="py-20 bg-gray-50 dark:bg-gray-950">
+    <div class="max-w-7xl mx-auto px-4">
+
+      <div class="flex items-center justify-between mb-12">
+        <div>
+          <h2 class="text-4xl font-extrabold">Les Promos</h2>
+          <p class="text-gray-500 dark:text-gray-400 mt-2">
+            Produits en réduction
+          </p>
+        </div>
+
+        <button class="bg-primary text-white px-6 py-3 rounded-xl font-semibold">
+          VIEW ALL
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <!-- PRODUCT CARD -->
+        <div class="promo-card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300">
+
+          <div class="relative overflow-hidden">
+            <span class="absolute top-4 left-4 bg-primary text-white px-4 py-2 rounded-full text-sm font-bold z-10">
+              ÉCONOMISEZ 25%
+            </span>
+
+            <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=1200&auto=format&fit=crop"
+            class="w-full h-64 object-cover transition duration-500">
+          </div>
+
+          <div class="p-6">
+
+            <div class="flex items-center gap-2 text-primary text-sm font-semibold">
+              <i class="fas fa-bolt"></i>
+              Livraison rapide
+            </div>
+
+            <p class="text-gray-500 text-sm mt-4">ASUS</p>
+
+            <h3 class="font-bold text-xl mt-2">
+              ASUS ROG STRIX G16
+            </h3>
+
+            <div class="mt-4 flex items-center gap-3">
+              <span class="text-primary text-2xl font-extrabold">13 999 DH</span>
+              <span class="line-through text-gray-400">17 999 DH</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- CARD -->
+        <div class="promo-card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300">
+
+          <div class="relative overflow-hidden">
+            <span class="absolute top-4 left-4 bg-primary text-white px-4 py-2 rounded-full text-sm font-bold z-10">
+              ÉCONOMISEZ 25%
+            </span>
+
+            <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=1200&auto=format&fit=crop"
+            class="w-full h-64 object-cover transition duration-500">
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-center gap-2 text-primary text-sm font-semibold">
+              <i class="fas fa-bolt"></i>
+              Livraison rapide
+            </div>
+
+            <p class="text-gray-500 text-sm mt-4">MSI</p>
+
+            <h3 class="font-bold text-xl mt-2">
+              MSI Gaming Monitor
+            </h3>
+
+            <div class="mt-4 flex items-center gap-3">
+              <span class="text-primary text-2xl font-extrabold">4 599 DH</span>
+              <span class="line-through text-gray-400">6 199 DH</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD -->
+        <div class="promo-card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300">
+
+          <div class="relative overflow-hidden">
+            <span class="absolute top-4 left-4 bg-primary text-white px-4 py-2 rounded-full text-sm font-bold z-10">
+              ÉCONOMISEZ 25%
+            </span>
+
+            <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=1200&auto=format&fit=crop"
+            class="w-full h-64 object-cover transition duration-500">
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-center gap-2 text-primary text-sm font-semibold">
+              <i class="fas fa-bolt"></i>
+              Livraison rapide
+            </div>
+
+            <p class="text-gray-500 text-sm mt-4">RAZER</p>
+
+            <h3 class="font-bold text-xl mt-2">
+              Razer RGB Keyboard
+            </h3>
+
+            <div class="mt-4 flex items-center gap-3">
+              <span class="text-primary text-2xl font-extrabold">1 299 DH</span>
+              <span class="line-through text-gray-400">1 799 DH</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD -->
+        <div class="promo-card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300">
+
+          <div class="relative overflow-hidden">
+            <span class="absolute top-4 left-4 bg-primary text-white px-4 py-2 rounded-full text-sm font-bold z-10">
+              ÉCONOMISEZ 25%
+            </span>
+
+            <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?q=80&w=1200&auto=format&fit=crop"
+            class="w-full h-64 object-cover transition duration-500">
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-center gap-2 text-primary text-sm font-semibold">
+              <i class="fas fa-bolt"></i>
+              Livraison rapide
+            </div>
+
+            <p class="text-gray-500 text-sm mt-4">HP</p>
+
+            <h3 class="font-bold text-xl mt-2">
+              HP Victus Gaming
+            </h3>
+
+            <div class="mt-4 flex items-center gap-3">
+              <span class="text-primary text-2xl font-extrabold">10 499 DH</span>
+              <span class="line-through text-gray-400">13 999 DH</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4">
+
+      <div class="text-center mb-14">
+        <h2 class="text-4xl font-extrabold">Nos Marques Vedettes</h2>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+
+        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 text-center shadow-lg">
+          <h3 class="text-3xl font-extrabold">ASUS</h3>
+          <p class="text-primary mt-2 font-semibold">Jusqu'à -50%</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 text-center shadow-lg">
+          <h3 class="text-3xl font-extrabold">MSI</h3>
+          <p class="text-primary mt-2 font-semibold">Jusqu'à -50%</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 text-center shadow-lg">
+          <h3 class="text-3xl font-extrabold">HP</h3>
+          <p class="text-primary mt-2 font-semibold">Jusqu'à -50%</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 text-center shadow-lg">
+          <h3 class="text-3xl font-extrabold">DELL</h3>
+          <p class="text-primary mt-2 font-semibold">Jusqu'à -50%</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 text-center shadow-lg">
+          <h3 class="text-3xl font-extrabold">RAZER</h3>
+          <p class="text-primary mt-2 font-semibold">Jusqu'à -50%</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERY -->
+  <section class="py-10 bg-gradient-to-r from-primary to-black">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+
+      <div class="flex items-center justify-center gap-4">
+        <i class="fas fa-check-circle text-white text-4xl"></i>
+
+        <h2 class="text-white text-2xl md:text-4xl font-extrabold">
+          التوصيل لجميع المدن المغربية بـ 35 درهم فقط!
+        </h2>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-lg">
+          <i class="fas fa-shipping-fast text-primary text-4xl"></i>
+          <h3 class="font-bold text-2xl mt-5">Livraison Rapide</h3>
+          <p class="text-gray-500 dark:text-gray-400 mt-3">
+            Expédition rapide partout au Maroc.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-lg">
+          <i class="fas fa-award text-primary text-4xl"></i>
+          <h3 class="font-bold text-2xl mt-5">Qualité Garantie</h3>
+          <p class="text-gray-500 dark:text-gray-400 mt-3">
+            Produits originaux et fiables.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-lg">
+          <i class="fas fa-lock text-primary text-4xl"></i>
+          <h3 class="font-bold text-2xl mt-5">Paiement Sécurisé</h3>
+          <p class="text-gray-500 dark:text-gray-400 mt-3">
+            Transactions 100% sécurisées.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-lg">
+          <i class="fas fa-headset text-primary text-4xl"></i>
+          <h3 class="font-bold text-2xl mt-5">Support Premium</h3>
+          <p class="text-gray-500 dark:text-gray-400 mt-3">
+            Assistance avant et après vente.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-black text-white pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-4">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+
+        <div>
+          <h2 class="text-3xl font-extrabold">
+            KAM <span class="text-primary">INFO</span>
+          </h2>
+
+          <p class="text-gray-400 mt-5 leading-relaxed">
+            Votre destination premium pour les équipements informatiques et gaming au Maroc.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-xl mb-5">Liens Rapides</h3>
+
+          <ul class="space-y-3 text-gray-400">
+            <li><a href="#" class="hover:text-primary">Accueil</a></li>
+            <li><a href="#" class="hover:text-primary">Produits</a></li>
+            <li><a href="#" class="hover:text-primary">Promotions</a></li>
+            <li><a href="#" class="hover:text-primary">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-xl mb-5">Contact</h3>
+
+          <ul class="space-y-4 text-gray-400">
+            <li><i class="fas fa-phone mr-2"></i> +212 6 12 34 56 78</li>
+            <li><i class="fas fa-envelope mr-2"></i> contact@kaminfo.ma</li>
+            <li><i class="fas fa-location-dot mr-2"></i> Casablanca, Maroc</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-xl mb-5">Newsletter</h3>
+
+          <div class="flex flex-col gap-4">
+            <input type="email" placeholder="Votre email"
+              class="bg-gray-900 border border-gray-700 rounded-xl px-4 py-4 outline-none focus:border-primary">
+
+            <button class="bg-primary hover:bg-blue-700 py-4 rounded-xl font-bold">
+              S'INSCRIRE
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-gray-800 mt-16 pt-8 text-center text-gray-500">
+        © 2026 KAM INFO — Tous droits réservés.
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+
+    // THEME
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const html = document.documentElement;
+
+    function updateThemeIcon() {
+      if (html.classList.contains('dark')) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      }
+    }
+
+    // Load saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+      html.classList.add('dark');
+    }
+
+    updateThemeIcon();
+
+    // Toggle theme
+    themeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+
+      if (html.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+
+      updateThemeIcon();
+    });
+
+    // LANGUAGE DROPDOWN
+    const langBtn = document.getElementById('langBtn');
+    const langMenu = document.getElementById('langMenu');
+
+    langBtn.addEventListener('click', () => {
+      langMenu.classList.toggle('hidden');
+    });
+
+    // Dummy language function
+    function changeLanguage(lang) {
+      alert('La langue sera changée vers : ' + lang);
+      langMenu.classList.add('hidden');
+    }
+
+    // Close dropdown outside
+    document.addEventListener('click', (e) => {
+      if (!langBtn.contains(e.target) && !langMenu.contains(e.target)) {
+        langMenu.classList.add('hidden');
+      }
+    });
+
+  </script>
+
+</body>
+</html>
